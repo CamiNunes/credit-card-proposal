@@ -18,51 +18,55 @@ public class Worker : BackgroundService
     public Worker(ILogger<Worker> logger,
                   IConfiguration configuration,
                   IProposalValidateUseCase proposalValidateUseCase,
-                  Consumer consumer)
+                  Consumer consumer,
+                  IServiceScopeFactory? serviceScope)
     {
         _logger = logger;
         _configuration = configuration;
         _proposalValidateUseCase = proposalValidateUseCase;
         _consumer = consumer;
+        _serviceScope = serviceScope;
     }
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _disposable = _consumer.Start<ProposalEvent>(_configuration.GetSection("RabbitMq:QueueName").Value, async (message) =>
+        var queueName = _configuration.GetSection("RabbitMq:QueueName").Value;
+        _logger.LogInformation("Iniciando Worker para consumir da fila: {QueueName}", queueName);
+
+        _disposable = _consumer.Start<ProposalEvent>(queueName, async (message) =>
         {
+            _logger.LogInformation("Mensagem recebida na fila: {QueueName}", queueName);
             await ProcessProposalAsync(message).ConfigureAwait(false);
         });
+
         return Task.CompletedTask;
     }
 
     private async Task ProcessProposalAsync(ProposalEvent message)
-{
-    try
     {
-        if (_serviceScope != null)
+        try
         {
-            await using (var scope = _serviceScope.CreateAsyncScope())
+            _logger.LogInformation("Processando mensagem: {@Message}", message);
+
+            if (_serviceScope != null)
             {
-                var service = scope
-                                .ServiceProvider
-                                .GetRequiredService<IProposalValidateUseCase>();
-                await service
-                        .ProposalValidateAsync(message)
-                        .ConfigureAwait(false);
+                await using (var scope = _serviceScope.CreateAsyncScope())
+                {
+                    var service = scope.ServiceProvider.GetRequiredService<IProposalValidateUseCase>();
+                    await service.ProposalValidateAsync(message).ConfigureAwait(false);
+                }
+
+                _logger.LogInformation("Mensagem processada com sucesso.");
+            }
+            else
+            {
+                // Handle the case where _serviceScope is unexpectedly null.
+                _logger.LogError("Service scope factory (_serviceScope) is inesperadamente null.");
             }
         }
-        else
+        catch (Exception ex)
         {
-            // Handle the case where _serviceScope is unexpectedly null.
-            // This could be logging an error or taking appropriate action.
-            _logger.LogError("Service scope factory (_serviceScope) is unexpectedly null.");
+            _logger.LogError(ex, "Erro ao processar proposta.");
         }
     }
-    catch (Exception ex)
-    {
-        _logger.LogError(ex, "Erro ao processar proposta.");
-    }
 }
-
-}
-

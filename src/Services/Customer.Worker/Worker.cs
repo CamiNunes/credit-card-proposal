@@ -18,19 +18,21 @@ public class Worker : BackgroundService
                   Consumer consumer)
     {
         _configuration = configuration;
-        _configuration = configuration;
         _consumer = consumer;
         _serviceScope = serviceScope;
-
         _logger = logger;
     }
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _disposable = _consumer.Start<CustomerEvent>(_configuration.GetSection("RabbitMq:QueueName").Value, async (message) =>
+        var queueName = _configuration.GetSection("RabbitMq:QueueName").Value;
+
+        _logger.LogInformation("Iniciando Worker para consumir da fila: {QueueName}", queueName);
+
+        _disposable = _consumer.Start<CustomerEvent>(queueName, async (message) =>
         {
-            await ProcessRegisterAsync(message)
-                   .ConfigureAwait(false);
+            _logger.LogInformation("Mensagem recebida na fila: {QueueName}", queueName);
+            await ProcessRegisterAsync(message).ConfigureAwait(false);
         });
 
         return Task.CompletedTask;
@@ -40,15 +42,15 @@ public class Worker : BackgroundService
     {
         try
         {
+            _logger.LogInformation("Processando mensagem: {@Message}", message);
+
             await using (var scope = _serviceScope.CreateAsyncScope())
             {
-                var service = scope
-                                .ServiceProvider
-                                .GetRequiredService<IRegisterCustomerUseCase>();
-                await service
-                        .ProcessEventCustomerAsync(message)
-                        .ConfigureAwait(false);
+                var service = scope.ServiceProvider.GetRequiredService<IRegisterCustomerUseCase>();
+                await service.ProcessEventCustomerAsync(message).ConfigureAwait(false);
             }
+
+            _logger.LogInformation("Mensagem processada com sucesso.");
         }
         catch (Exception ex)
         {
@@ -56,4 +58,3 @@ public class Worker : BackgroundService
         }
     }
 }
-

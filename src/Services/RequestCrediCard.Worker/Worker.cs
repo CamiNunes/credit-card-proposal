@@ -1,9 +1,8 @@
 ﻿using Marraia.Queue;
 using Marraia.Queue.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using ProposalCreditCard.Application.UseCase.ProposalValidate.Interfaces;
-using ProposalCreditCard.Application.UseCase.RegisterCustomer.Event;
 using ProposalCreditCard.Application.UseCase.RequestCreditCard.Interfaces;
+using ProposalCreditCard.Application.UseCase.RegisterCustomer.Event;
 
 namespace RequestCrediCard.Worker;
 
@@ -18,11 +17,11 @@ public class Worker : BackgroundService
     private IDisposable _disposable;
 
     public Worker(ILogger<Worker> logger,
-              IEventBus eventBus,
-              Consumer consumer,
-              IServiceScopeFactory serviceScope,
-              IRequestCreditCardUseCase requestCreditCardUseCase,
-              IConfiguration configuration)
+                  IEventBus eventBus,
+                  Consumer consumer,
+                  IServiceScopeFactory serviceScope,
+                  IRequestCreditCardUseCase requestCreditCardUseCase,
+                  IConfiguration configuration)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
@@ -34,8 +33,12 @@ public class Worker : BackgroundService
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _disposable = _consumer.Start<ProposalCreditCardEvent>(_configuration.GetSection("RabbitMq:QueueName").Value, async (message) =>
+        var queueName = _configuration.GetSection("RabbitMq:QueueName").Value;
+        _logger.LogInformation("Iniciando Worker para consumir da fila: {QueueName}", queueName);
+
+        _disposable = _consumer.Start<ProposalCreditCardEvent>(queueName, async (message) =>
         {
+            _logger.LogInformation("Mensagem recebida na fila: {QueueName}", queueName);
             await ProcessCreditCardRequestAsync(message).ConfigureAwait(false);
         });
 
@@ -46,15 +49,15 @@ public class Worker : BackgroundService
     {
         try
         {
+            _logger.LogInformation("Processando mensagem: {@Message}", message);
+
             await using (var scope = _serviceScope.CreateAsyncScope())
             {
-                var service = scope
-                                .ServiceProvider
-                                .GetRequiredService<IRequestCreditCardUseCase>();
-                await service
-                        .ProcessCreditCardRequestAsync(message)
-                        .ConfigureAwait(false);
+                var service = scope.ServiceProvider.GetRequiredService<IRequestCreditCardUseCase>();
+                await service.ProcessCreditCardRequestAsync(message).ConfigureAwait(false);
             }
+
+            _logger.LogInformation("Mensagem processada com sucesso.");
         }
         catch (Exception ex)
         {
