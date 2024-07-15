@@ -11,4 +11,8 @@ Estrutura de Comunicação:
 3. Emissão de Cartão de Crédito:
 - O ‘RequestCreditCard.Worker’ emite o cartão de crédito e envia uma mensagem de confirmação para o serviço de ‘Cadastro de Cliente’.
 
-- ![Diagrama da Arquitetura](./fluxograma.png)
+- Fluxograma do sistema:
+  
+<div align="center">
+    <img src="./fluxograma.png" alt="Diagrama da Arquitetura">
+</div>
