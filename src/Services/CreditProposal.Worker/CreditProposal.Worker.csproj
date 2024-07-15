@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-CreditProposal.Worker-34d812be-edf5-4d81-96b2-3ad0456208f5</UserSecretsId>
+    <DockerComposeProjectPath>../../../docker-compose.dcproj</DockerComposeProjectPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Marraia.Queue" Version="1.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Modules\ProposalCreditCard.Application\ProposalCreditCard.Application.csproj" />
+    <ProjectReference Include="..\..\Modules\ProposalCreditCard.Domain\ProposalCreditCard.Domain.csproj" />
+  </ItemGroup>
+</Project>

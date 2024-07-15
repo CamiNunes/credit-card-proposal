@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="UseCase\" />
+    <None Remove="UseCase\RegisterCustomer\" />
+    <None Remove="UseCase\RegisterCustomer\Interfaces\" />
+    <None Remove="UseCase\RegisterCustomer\Event\" />
+    <None Remove="UseCase\ProposalValidate\" />
+    <None Remove="UseCase\ProposalValidate\Interfaces\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UseCase\RegisterCustomer\" />
+    <Folder Include="UseCase\RegisterCustomer\Interfaces\" />
+    <Folder Include="UseCase\RegisterCustomer\Event\" />
+    <Folder Include="UseCase\ProposalValidate\" />
+    <Folder Include="UseCase\ProposalValidate\Interfaces\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProposalCreditCard.Domain\ProposalCreditCard.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Marraia.Queue" Version="1.0.1" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,82 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34916.146
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ports", "Ports", "{951645DB-9C05-4D40-A4B1-95B89FD716DF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreditProposal.Worker", "src\Services\CreditProposal.Worker\CreditProposal.Worker.csproj", "{3E836EF9-5315-48FD-BA14-764E91037E3B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RequestCrediCard.Worker", "src\Services\RequestCrediCard.Worker\RequestCrediCard.Worker.csproj", "{E5FB5018-9369-4B3F-BEA8-20734A461D10}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0A6F139E-7EF8-41B0-8D3D-25330BF01A1F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{FFAE5E39-9E7D-449C-BEAD-05BF0BFF9323}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customer.Worker", "src\Services\Customer.Worker\Customer.Worker.csproj", "{4AF1992A-E600-44E0-BDF3-DEC4B77C42CC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProposalCreditCard.Domain", "src\Modules\ProposalCreditCard.Domain\ProposalCreditCard.Domain.csproj", "{7E0A0BDB-DE61-46CD-A702-0E1EAA9A34F0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProposalCreditCard.Infrastructure.Repositories", "src\Modules\ProposalCreditCard.Infrastructure.Repositories\ProposalCreditCard.Infrastructure.Repositories.csproj", "{05666E1A-39F4-4E27-B2A2-365194B2AE23}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProposalCreditCard.Application", "src\Modules\ProposalCreditCard.Application\ProposalCreditCard.Application.csproj", "{F0FC971C-4D38-4417-A48D-1CF6038B7C84}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{3CDEAF75-5033-4E44-A6CD-08B2D6BB71E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProposalCreditCard.API", "src\Modules\ProposalCreditCard.API\ProposalCreditCard.API.csproj", "{BE6CD62C-31B1-4EB4-89AB-C3E938C41FBA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3E836EF9-5315-48FD-BA14-764E91037E3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E836EF9-5315-48FD-BA14-764E91037E3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E836EF9-5315-48FD-BA14-764E91037E3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E836EF9-5315-48FD-BA14-764E91037E3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5FB5018-9369-4B3F-BEA8-20734A461D10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5FB5018-9369-4B3F-BEA8-20734A461D10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5FB5018-9369-4B3F-BEA8-20734A461D10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5FB5018-9369-4B3F-BEA8-20734A461D10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A6F139E-7EF8-41B0-8D3D-25330BF01A1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A6F139E-7EF8-41B0-8D3D-25330BF01A1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A6F139E-7EF8-41B0-8D3D-25330BF01A1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A6F139E-7EF8-41B0-8D3D-25330BF01A1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AF1992A-E600-44E0-BDF3-DEC4B77C42CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AF1992A-E600-44E0-BDF3-DEC4B77C42CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AF1992A-E600-44E0-BDF3-DEC4B77C42CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AF1992A-E600-44E0-BDF3-DEC4B77C42CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E0A0BDB-DE61-46CD-A702-0E1EAA9A34F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E0A0BDB-DE61-46CD-A702-0E1EAA9A34F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E0A0BDB-DE61-46CD-A702-0E1EAA9A34F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E0A0BDB-DE61-46CD-A702-0E1EAA9A34F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05666E1A-39F4-4E27-B2A2-365194B2AE23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05666E1A-39F4-4E27-B2A2-365194B2AE23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05666E1A-39F4-4E27-B2A2-365194B2AE23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05666E1A-39F4-4E27-B2A2-365194B2AE23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0FC971C-4D38-4417-A48D-1CF6038B7C84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0FC971C-4D38-4417-A48D-1CF6038B7C84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0FC971C-4D38-4417-A48D-1CF6038B7C84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0FC971C-4D38-4417-A48D-1CF6038B7C84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE6CD62C-31B1-4EB4-89AB-C3E938C41FBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE6CD62C-31B1-4EB4-89AB-C3E938C41FBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE6CD62C-31B1-4EB4-89AB-C3E938C41FBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE6CD62C-31B1-4EB4-89AB-C3E938C41FBA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3E836EF9-5315-48FD-BA14-764E91037E3B} = {951645DB-9C05-4D40-A4B1-95B89FD716DF}
+		{E5FB5018-9369-4B3F-BEA8-20734A461D10} = {951645DB-9C05-4D40-A4B1-95B89FD716DF}
+		{4AF1992A-E600-44E0-BDF3-DEC4B77C42CC} = {951645DB-9C05-4D40-A4B1-95B89FD716DF}
+		{7E0A0BDB-DE61-46CD-A702-0E1EAA9A34F0} = {FFAE5E39-9E7D-449C-BEAD-05BF0BFF9323}
+		{05666E1A-39F4-4E27-B2A2-365194B2AE23} = {FFAE5E39-9E7D-449C-BEAD-05BF0BFF9323}
+		{F0FC971C-4D38-4417-A48D-1CF6038B7C84} = {FFAE5E39-9E7D-449C-BEAD-05BF0BFF9323}
+		{BE6CD62C-31B1-4EB4-89AB-C3E938C41FBA} = {3CDEAF75-5033-4E44-A6CD-08B2D6BB71E5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D96A4535-4E74-4CA1-8E57-759AF2EE0C1F}
+	EndGlobalSection
+EndGlobal
