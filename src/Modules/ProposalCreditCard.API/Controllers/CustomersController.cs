@@ -35,7 +35,8 @@ namespace ProposalCreditCard.API.Controllers
                 _logger.LogInformation("Publicando evento de registro de cliente.");
 
                 // Publica o evento para o Consumer.Worker
-                await _eventBus.PublishAsync(customerEvent, "messagebus.customer.eventhandler").ConfigureAwait(false);
+                //await _eventBus.PublishAsync(customerEvent, "messagebus.customer.eventhandler").ConfigureAwait(false);
+                await _eventBus.PublishAsync(customerEvent, "messagebus.proposalCreditCard").ConfigureAwait(false);
 
                 _logger.LogInformation("Evento publicado com sucesso.");
 

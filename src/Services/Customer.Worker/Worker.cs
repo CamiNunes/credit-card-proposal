@@ -20,18 +20,14 @@ public class Worker : BackgroundService
         _configuration = configuration;
         _consumer = consumer;
         _serviceScope = serviceScope;
+
         _logger = logger;
     }
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        var queueName = _configuration.GetSection("RabbitMq:QueueName").Value;
-
-        _logger.LogInformation("Iniciando Worker para consumir da fila: {QueueName}", queueName);
-
-        _disposable = _consumer.Start<CustomerEvent>(queueName, async (message) =>
+        _disposable = _consumer.Start<CustomerEvent>(_configuration.GetSection("RabbitMq:QueueName").Value, async (message) =>
         {
-            _logger.LogInformation("Mensagem recebida na fila: {QueueName}", queueName);
             await ProcessRegisterAsync(message).ConfigureAwait(false);
         });
 
@@ -42,15 +38,11 @@ public class Worker : BackgroundService
     {
         try
         {
-            _logger.LogInformation("Processando mensagem: {@Message}", message);
-
             await using (var scope = _serviceScope.CreateAsyncScope())
             {
                 var service = scope.ServiceProvider.GetRequiredService<IRegisterCustomerUseCase>();
                 await service.ProcessEventCustomerAsync(message).ConfigureAwait(false);
             }
-
-            _logger.LogInformation("Mensagem processada com sucesso.");
         }
         catch (Exception ex)
         {
