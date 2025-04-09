@@ -28,6 +28,8 @@ public class Worker : BackgroundService
     {
         _disposable = _consumer.Start<CustomerEvent>(_configuration.GetSection("RabbitMq:QueueName").Value, async (message) =>
         {
+            _logger.LogInformation("Mensagem recebida: {Message}", message);
+
             await ProcessRegisterAsync(message).ConfigureAwait(false);
         });
 
@@ -38,9 +40,14 @@ public class Worker : BackgroundService
     {
         try
         {
+             _logger.LogInformation("Mensagem: ", message);
+
             await using (var scope = _serviceScope.CreateAsyncScope())
             {
                 var service = scope.ServiceProvider.GetRequiredService<IRegisterCustomerUseCase>();
+
+                 _logger.LogInformation("Service: ", service);
+
                 await service.ProcessEventCustomerAsync(message).ConfigureAwait(false);
             }
         }

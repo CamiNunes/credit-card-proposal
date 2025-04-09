@@ -26,5 +26,6 @@ builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
 builder.Services.AddTransient<IRegisterCustomerUseCase, RegisterCustomerUseCase>();
 
 var host = builder.Build();
+await host.RunAsync();
 host.Run();
 
