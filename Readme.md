@@ -1,3 +1,36 @@
+Requisito:
+
+Segue abaixo as instruções para realização da atividade:
+
+O seu objetivo é propor a comunicação de 3 microserviços por mensageria.
+
+Situação problema:
+
+Dado o cadastro de um novo cliente, deverá existir uma comunicação por mensageria:
+
+1. Geração de uma proposta de crédito;
+2. Emissão de 1 ou mais cartões de crédito;
+
+
+Pensando que pode haver erros de comunicação na proposta de crédito ou na emissão do cartão, deverá existir um processo de resiliência e uma sinalização via evento ao microserviço de clientes.
+
+
+Microserviços:
+
+1. Cadastro de clientes;
+2. Proposta de crédito;
+3. Cartão de crédito;
+
+Requisitos técnicos:
+
+1. Proposta deverá ter como base o .Net 8.0;
+2. Serviço de mensageria deve ter como base, RabbitMQ, Azure services bus e/ou Azure eventhub
+
+Entrega:
+
+Você deverá entregar um documento com uma proposta de solução em PDF, se desejar, pode adicionar imagens dos fluxos usando como base o site https://draw.io/.
+
+
 Estrutura de Comunicação:
 
 1. Cadastro de Cliente:
